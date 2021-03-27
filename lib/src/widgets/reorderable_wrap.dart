@@ -56,6 +56,7 @@ class ReorderableWrap extends StatefulWidget {
     this.maxMainAxisCount,
     this.onNoReorder,
     this.onReorderStarted,
+    this.onWillAccept,
     this.reorderAnimationDuration = const Duration(milliseconds: 200),
     this.scrollAnimationDuration = const Duration(milliseconds: 200),
     this.ignorePrimaryScrollController = false,
@@ -100,6 +101,8 @@ class ReorderableWrap extends StatefulWidget {
 
   /// Called when the draggable starts being dragged.
   final ReorderStartedCallback? onReorderStarted;
+  
+  final Function? onWillAccept;
 
   final BuildItemsContainer? buildItemsContainer;
   final BuildDraggableFeedback? buildDraggableFeedback;
@@ -274,6 +277,7 @@ class _ReorderableWrapState extends State<ReorderableWrap> {
           onReorder: widget.onReorder,
           onNoReorder: widget.onNoReorder,
           onReorderStarted: widget.onReorderStarted,
+          onWillAccept: widget.onWillAccept,
           padding: widget.padding,
           buildItemsContainer: widget.buildItemsContainer,
           buildDraggableFeedback: widget.buildDraggableFeedback,
@@ -319,6 +323,7 @@ class _ReorderableWrapContent extends StatefulWidget {
     required this.onReorder,
     required this.onNoReorder,
     required this.onReorderStarted,
+    required this.onWillAccept,
     required this.buildItemsContainer,
     required this.buildDraggableFeedback,
     required this.needsLongPressDraggable,
@@ -348,6 +353,7 @@ class _ReorderableWrapContent extends StatefulWidget {
   final ReorderCallback onReorder;
   final NoReorderCallback? onNoReorder;
   final ReorderStartedCallback? onReorderStarted;
+  final Function? onWillAccept;
   final BuildItemsContainer? buildItemsContainer;
   final BuildDraggableFeedback? buildDraggableFeedback;
   final bool needsLongPressDraggable;
@@ -983,6 +989,7 @@ class _ReorderableWrapContentState extends State<_ReorderableWrapContent>
         }
 
         setState(() {
+          widget.onWillAccept();
           _nextDisplayIndex = nextDisplayIndex;
 
           _requestAnimationToNextIndex(isAcceptingNewTarget: true);
