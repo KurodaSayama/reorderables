@@ -989,7 +989,9 @@ class _ReorderableWrapContentState extends State<_ReorderableWrapContent>
         }
 
         setState(() {
-          widget.onWillAccept();
+          if (widget.onWillAccept != null) {
+            widget.onWillAccept();
+          }
           _nextDisplayIndex = nextDisplayIndex;
 
           _requestAnimationToNextIndex(isAcceptingNewTarget: true);
