@@ -990,7 +990,7 @@ class _ReorderableWrapContentState extends State<_ReorderableWrapContent>
 
         setState(() {
           if (widget.onWillAccept != null) {
-            widget.onWillAccept();
+            widget.onWillAccept!();
           }
           _nextDisplayIndex = nextDisplayIndex;
 
